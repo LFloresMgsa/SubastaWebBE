@@ -7,7 +7,7 @@ export const getAllBlogs = async (req, res) => {
         res.json(blogs)
 
     } catch (error) {
-        res.json({ message: error.message })
+        res.json({ message: error.message } )
     }
 }
 
