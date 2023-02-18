@@ -1,45 +1,64 @@
-import lgm_catalogo_bs_Controller from "../models/lgm_catalogo_bs.js";
-import db from "../database/db.js";
+import getConnection from "./../database/db.js";
+import express from "express";
+import mysql from "mysql";
+import bodyParser from "body-parser";
 
 
+//import lgm_catalogo_bs_Controller from "../models/lgm_catalogo_bs.js";
+//import db from "../database/db.js";
 
 
-export const getAllCatalogo = async (req, res) => {
+const getCatalogos = async (request, response) => {
   try {
 
+//    const app = express();
 
-    const express = require("express");
-    const app = express();
-    const bodyParser = require("body-parser");
-    const mysql = require("mysql");
+  //  const PORT = 8000;
 
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+    // include body parser for body parameters
+    //app.use(bodyParser.json());
 
-    // Crea una conexión a la base de datos MySQL
-    const con = mysql.createConnection({
+    // load mysql package
+    //const mysql = require("mysql");
+    console.log("prueba de conexion");
+    // create mysql connection
+    const connection = mysql.createConnection({
       host: "localhost",
       user: "root",
       password: "1q2w3e4r5t.",
       database: "advisor"
     });
 
-    con.connect(err => {
-      if (err) throw err;
-      console.log("Connected to the database");
+
+
+    // check connection
+    connection.connect(function (error) {
+
+      if (error) {
+        throw error;
+      } else {
+        console.log("We are now successfully connected with mysql database");
+      }
     });
 
-    //const catalogos = await lgm_catalogo_bs_Controller.findAll()
-    //res.json(catalogos)
 
-    let sql = "SELECT * FROM lgm_catalogo_bs";
-    con.query(sql, (err, result) => {
-      if (err) throw err;
-      console.log("Data fetched");
-      res.json(result);
+
+    // query
+    connection.query("SELECT * from lgm_catalogo_bs", function (error, results, fields) {
+
+      if (error) {
+        throw error;
+      } else {
+        response.json(results);
+        //console.log(fields);
+      }
     });
-
   } catch (error) {
-    res.json({ message: error.message })
+    response.status(500);
+    response.send(error.message);
   }
-}
+};
+
+export const methods = {
+  getCatalogos
+};

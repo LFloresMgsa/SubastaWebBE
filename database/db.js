@@ -1,8 +1,17 @@
-import { Sequelize } from "sequelize";
 
-const db= new Sequelize('advisor','root','1q2w3e4r5t.',{
-    host:'localhost',
-    dialect:'mysql'
-})
+const mysql =  require("mysql");
 
-export default db
+const connection = mysql.createConnection({
+    host: 'localhost',
+    database: 'advisor',
+    user: 'root',
+    password: '1q2w3e4r5t.'
+});
+
+const getConnection = () => {
+    return connection;
+};
+
+ module.exports = {
+    getConnection
+}; 
