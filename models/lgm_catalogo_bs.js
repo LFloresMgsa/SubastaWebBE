@@ -1,8 +1,11 @@
-import db from "../database/db.js";
+const db = require("../database/db.js");
+const DataTypes = require("sequelize");
+const Sequelize = require("sequelize");
 
-import { DataTypes } from "sequelize";
+const sequelize = new Sequelize('mysql::memory:')
 
-const lgm_catalogo_bs = db.define('lgm_catalogo_bs', {
+const lgm_catalogo_bs = sequelize.define('lgm_catalogo_bs', {
+    Accion: { type: DataTypes.STRING },
     Emp_cCodigo: { type: DataTypes.STRING },
     Lgt_cCategoria: { type: DataTypes.STRING },
     Lgt_cGrupo: { type: DataTypes.STRING },
@@ -17,4 +20,5 @@ const lgm_catalogo_bs = db.define('lgm_catalogo_bs', {
     Placa: { type: DataTypes.STRING }
 })
 
-export default lgm_catalogo_bs
+
+module.exports = lgm_catalogo_bs; 

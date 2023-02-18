@@ -1,6 +1,5 @@
 const db = require("../database/db.js");
-const mysql = require("mysql");
-const bodyParser = require("body-parser");
+const oCatalogo = require("../models/lgm_catalogo_bs.js");
 
 // get all data api
 const getCatalogos = async (request, response) => {
@@ -24,11 +23,11 @@ const getCatalogo = async (request, response) => {
         // create mysql connection
         const connection = await db.getConnection();
 
-        var Emp_cCodigo = request.params.Emp_cCodigo;
-        var Cab_cCatalogo = request.params.Cab_cCatalogo;
+        oCatalogo.Emp_cCodigo = request.params.Emp_cCodigo;
+        oCatalogo.Cab_cCatalogo = request.params.Cab_cCatalogo;
 
         //query
-        await connection.query("select *  from  lgm_catalogo_bs where Emp_cCodigo = ? and  Cab_cCatalogo= ? ", [Emp_cCodigo, Cab_cCatalogo], function (error, results, fields) {
+        await connection.query("select *  from  lgm_catalogo_bs where Emp_cCodigo = ? and  Cab_cCatalogo= ? ", [oCatalogo.Emp_cCodigo, oCatalogo.Cab_cCatalogo], function (error, results, fields) {
             if (error) {
                 throw error;
             } else {
@@ -69,17 +68,17 @@ const postCatalogo = async (request, response) => {
     }
 };
 
-// get data by id data api
+// delete data by id data api
 const deleteCatalogo = async (request, response) => {
     try {
         // create mysql connection
         const connection = await db.getConnection();
 
-        var Emp_cCodigo = request.body.Emp_cCodigo;
-        var Cab_cCatalogo = request.body.Cab_cCatalogo;
+        oCatalogo.Emp_cCodigo = request.body.Emp_cCodigo;
+        oCatalogo.Cab_cCatalogo = request.body.Cab_cCatalogo;
     
         //query
-        await connection.query("delete from lgm_catalogo_bs where Emp_cCodigo = ? and  Cab_cCatalogo= ? ", [Emp_cCodigo, Cab_cCatalogo], function (error, results, fields) {
+        await connection.query("delete from lgm_catalogo_bs where Emp_cCodigo = ? and  Cab_cCatalogo= ? ", [oCatalogo.Emp_cCodigo, oCatalogo.Cab_cCatalogo], function (error, results, fields) {
     
             if (error) {
                 throw error;
@@ -100,24 +99,24 @@ const deleteCatalogo = async (request, response) => {
     }
 };
 
-// get data by id data api
+// update data by id data api
 const putCatalogo = async (request, response) => {
     try {
         // create mysql connection
         const connection = await db.getConnection();
 
         var params = request.body;
-        var Cab_cDescripcion = params.Cab_cDescripcion;
-        var Propietario = params.Propietario;
-        var Padre = params.Padre;
-        var Madre = params.Madre;
-        var Info = params.Info;
-        var Placa = params.Placa;
-        var Emp_cCodigo = params.Emp_cCodigo;
-        var Cab_cCatalogo = params.Cab_cCatalogo;
+        oCatalogo.Cab_cDescripcion = params.Cab_cDescripcion;
+        oCatalogo.Propietario = params.Propietario;
+        oCatalogo.Padre = params.Padre;
+        oCatalogo.Madre = params.Madre;
+        oCatalogo.Info = params.Info;
+        oCatalogo.Placa = params.Placa;
+        oCatalogo.Emp_cCodigo = params.Emp_cCodigo;
+        oCatalogo.Cab_cCatalogo = params.Cab_cCatalogo;
     
         //query
-        await connection.query("update lgm_catalogo_bs SET Cab_cDescripcion =?, Propietario=?, Padre=?, Madre=?, Info=?, Placa=? where Emp_cCodigo=? and Cab_cCatalogo=? ", [Cab_cDescripcion, Propietario, Padre, Madre, Info, Placa, Emp_cCodigo, Cab_cCatalogo], function (error, results, fields) {
+        await connection.query("update lgm_catalogo_bs SET Cab_cDescripcion =?, Propietario=?, Padre=?, Madre=?, Info=?, Placa=? where Emp_cCodigo=? and Cab_cCatalogo=? ", [oCatalogo.Cab_cDescripcion, oCatalogo.Propietario, oCatalogo.Padre, oCatalogo.Madre, oCatalogo.Info, oCatalogo.Placa, oCatalogo.Emp_cCodigo, oCatalogo.Cab_cCatalogo], function (error, results, fields) {
     
             if (error) {
                 throw error;
@@ -142,11 +141,11 @@ const getCatalogosSP = async (request, response) => {
         const connection = await db.getConnection();
 
         var params = request.body;
-        var Accion = params.Accion;
-        var Emp_cCodigo = params.Emp_cCodigo;
-        var Cab_cCatalogo = params.Cab_cCatalogo;
+        oCatalogo.Accion = params.Accion;
+        oCatalogo.Emp_cCodigo = params.Emp_cCodigo;
+        oCatalogo.Cab_cCatalogo = params.Cab_cCatalogo;
     
-        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [Accion,Emp_cCodigo,"","","","",Cab_cCatalogo,"","","","","",""], function (error, results, fields) {
+        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [oCatalogo.Accion,oCatalogo.Emp_cCodigo,"","","","",oCatalogo.Cab_cCatalogo,"","","","","",""], function (error, results, fields) {
     
             if (error) {
                 throw error;
