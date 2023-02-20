@@ -3,15 +3,22 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const catalogoRoutes = require("./routes/catalogo.routes.js");
-
+const cors=require("cors");
 
 // settings
 const app = express();
 const PORT = 5000;
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200,
+ }
 
 app.set("port", PORT);
 
 // Middlewares
+
+app.use(cors(corsOptions)); // Use this after the variable declaration
 app.use(bodyParser.json());
 
 // Routes
