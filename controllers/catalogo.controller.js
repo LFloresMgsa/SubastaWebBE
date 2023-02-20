@@ -143,9 +143,20 @@ const getCatalogosSP = async (request, response) => {
         var params = request.body;
         oCatalogo.Accion = params.Accion;
         oCatalogo.Emp_cCodigo = params.Emp_cCodigo;
+        oCatalogo.Lgt_cCategoria = params.Lgt_cCategoria;
+        oCatalogo.Lgt_cGrupo = params.Lgt_cGrupo;
+        oCatalogo.Lgt_cClase = params.Lgt_cClase;
+        oCatalogo.Lgt_cFamilia = params.Lgt_cFamilia;
         oCatalogo.Cab_cCatalogo = params.Cab_cCatalogo;
+
+        oCatalogo.Cab_cDescripcion = params.Cab_cDescripcion;
+        oCatalogo.Propietario = params.Propietario;
+        oCatalogo.Padre = params.Padre;
+        oCatalogo.Madre = params.Madre;
+        oCatalogo.Info = params.Info;
+        oCatalogo.Placa = params.Placa;
     
-        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [oCatalogo.Accion,oCatalogo.Emp_cCodigo,"","","","",oCatalogo.Cab_cCatalogo,"","","","","",""], function (error, results, fields) {
+        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [oCatalogo.Accion,oCatalogo.Emp_cCodigo,oCatalogo.Lgt_cCategoria,oCatalogo.Lgt_cGrupo,oCatalogo.Lgt_cClase,oCatalogo.Lgt_cFamilia,oCatalogo.Cab_cCatalogo,oCatalogo.Cab_cDescripcion,oCatalogo.Propietario,oCatalogo.Padre,oCatalogo.Madre,oCatalogo.Info,oCatalogo.Placa], function (error, results, fields) {
     
             if (error) {
                 throw error;

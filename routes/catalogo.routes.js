@@ -1,6 +1,8 @@
 
 const express = require("express");
 const catalogoController  = require("../controllers/catalogo.controller.js");
+const crearController  = require("../");
+
 
 const router = express.Router();
 
@@ -10,6 +12,9 @@ router.post('/insertar/',catalogoController.postCatalogo);
 router.delete('/',catalogoController.deleteCatalogo);
 router.put('/',catalogoController.putCatalogo);
 router.post('/sp/',catalogoController.getCatalogosSP);
+
+
+
 
  
 
