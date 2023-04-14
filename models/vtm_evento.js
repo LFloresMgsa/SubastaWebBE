@@ -1,8 +1,11 @@
-import db from "../database/db.js";
+const db = require("../database/db.js");
+const DataTypes = require("sequelize");
+const Sequelize = require("sequelize");
 
-import { DataTypes } from "sequelize";
+const sequelize = new Sequelize('mysql::memory:')
 
-const vtm_evento = db.define('vtm_evento', {
+const vtm_evento = sequelize.define('vtm_evento', {
+    Accion: { type: DataTypes.STRING },    
     Emp_cCodigo: { type: DataTypes.STRING },
     Pan_cAnio: { type: DataTypes.STRING },
     Per_cPeriodo: { type: DataTypes.STRING },
@@ -14,4 +17,6 @@ const vtm_evento = db.define('vtm_evento', {
     Dvm_cEstado: { type: DataTypes.STRING }
 })
 
-export default vtm_evento
+module.exports = vtm_evento;
+
+
