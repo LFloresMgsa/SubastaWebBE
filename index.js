@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const catalogoRoutes = require("./routes/catalogo.routes.js");
-const catalogsubastaRoutes = require("./routes/subasta.routes.js");
+const catalogsubastaRoutes = require("./routes/evento.routes.js");
 const cors=require("cors");
 
 // settings
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use("/api/catalogo", catalogoRoutes);
-app.use("/api/subasta", catalogsubastaRoutes );
+app.use("/api/evento", catalogsubastaRoutes );
 
 
 // pagina inicial
