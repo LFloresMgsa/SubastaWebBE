@@ -3,6 +3,8 @@ const oEventoCab = require("../models/vtm_evento.js");
 const oEventoDet = require("../models/vtd_evento.js");
 const oEventoDetPuja = require("../models/vtd_evento_puja.js");
 
+const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
+
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
     try {
@@ -118,11 +120,48 @@ const getEventosDetPuja = async (request, response) => {
     }
 };
 
+const getCatalogoImagenes = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        oCatalogoImagenes.Accion = params.Accion;
+        oCatalogoImagenes.Emp_cCodigo = params.Emp_cCodigo;
+        oCatalogoImagenes.Lgt_cCategoria = params.Lgt_cCategoria;
+        oCatalogoImagenes.Lgt_cGrupo = params.Lgt_cGrupo;
+        oCatalogoImagenes.Lgt_cClase = params.Lgt_cClase;
+
+        oCatalogoImagenes.Lgt_cFamilia = params.Lgt_cFamilia;
+        oCatalogoImagenes.Cab_cCatalogo = params.Cab_cCatalogo;
+        oCatalogoImagenes.Cab_nItem = params.Cab_nItem;
+        oCatalogoImagenes.Cab_cEnlace= params.Cab_cEnlace;
+
+         
+
+        connection.query("CALL sp_lgd_catalogo_imagenes (?,?,?,?,?,?,?,?,?) ", [
+            oCatalogoImagenes.Accion , oCatalogoImagenes.Emp_cCodigo, oCatalogoImagenes.Lgt_cCategoria, 
+            oCatalogoImagenes.Lgt_cGrupo, oCatalogoImagenes.Lgt_cClase, oCatalogoImagenes.Lgt_cFamilia , 
+            oCatalogoImagenes.Cab_cCatalogo, oCatalogoImagenes.Cab_nItem , oCatalogoImagenes.Cab_cEnlace
+        ], function (error, results, fields) {
+    
+            if (error) {
+                throw error;
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
 // export functions
 module.exports = {
     getEventosCab,
     getEventosDet,
-    getEventosDetPuja
+    getEventosDetPuja,
+    getCatalogoImagenes
 };
 
 
