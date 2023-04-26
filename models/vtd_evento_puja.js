@@ -18,7 +18,8 @@ const vtd_evento_puja = sequelize.define('vtd_evento_puja', {
     Dvd_cTelefono  : {type: DataTypes.STRING},
     Dvd_cCorreo  : {type: DataTypes.STRING},
     Dvd_nImporte  : {type: DataTypes.DECIMAL},
-    Dvd_cEstado  : {type: DataTypes.STRING}
+    Dvd_cEstado  : {type: DataTypes.STRING},
+    Dvd_dFechaPuja : {type: DataTypes.DATE}
    
 })
 

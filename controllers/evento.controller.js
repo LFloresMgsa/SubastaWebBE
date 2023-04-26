@@ -100,12 +100,14 @@ const getEventosDetPuja = async (request, response) => {
         oEventoDetPuja.Dvd_nImporte= params.Dvd_nImporte;
         oEventoDetPuja.Dvd_cEstado= params.Dvd_cEstado;
 
-        
-        connection.query("CALL sp_vtd_evento_puja (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+        oEventoDetPuja.Dvd_dFechaPuja= params.Dvd_dFechaPuja;
+
+                
+        connection.query("CALL sp_vtd_evento_puja (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oEventoDetPuja.Accion , oEventoDetPuja.Emp_cCodigo, oEventoDetPuja.Pan_cAnio, oEventoDetPuja.Per_cPeriodo, 
             oEventoDetPuja.Dvm_cNummov, oEventoDetPuja.Cab_cCatalogo, oEventoDetPuja.Dvd_nCorrel , 
             oEventoDetPuja.Dvd_cDocID, oEventoDetPuja.Dvd_cNombres , oEventoDetPuja.Dvd_cApellidos, oEventoDetPuja.Dvd_cTelefono,
-            oEventoDetPuja.Dvd_cCorreo ,oEventoDetPuja.Dvd_nImporte ,oEventoDetPuja.Dvd_cEstado
+            oEventoDetPuja.Dvd_cCorreo ,oEventoDetPuja.Dvd_nImporte ,oEventoDetPuja.Dvd_cEstado ,oEventoDetPuja.Dvd_dFechaPuja
         ], function (error, results, fields) {
     
             if (error) {
