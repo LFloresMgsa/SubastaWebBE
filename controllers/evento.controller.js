@@ -156,6 +156,9 @@ const getCatalogoImagenes = async (request, response) => {
         response.send(error.message);
     }
 };
+
+
+
 // export functions
 module.exports = {
     getEventosCab,
