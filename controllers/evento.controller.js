@@ -2,7 +2,7 @@ const db = require("../database/db.js");
 const oEventoCab = require("../models/vtm_evento.js");
 const oEventoDet = require("../models/vtd_evento.js");
 const oEventoDetPuja = require("../models/vtd_evento_puja.js");
-
+const oVideoteca = require("../models/lgm_videoteca.js");
 const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
 
 // get all data api with store procedure
@@ -159,6 +159,38 @@ const getCatalogoImagenes = async (request, response) => {
     }
 };
 
+const getVideoteca = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        oVideoteca.Accion = params.Accion;
+        oVideoteca.Emp_cCodigo = params.Emp_cCodigo;
+        oVideoteca.Lgt_nIndice = params.Lgt_nIndice;
+        oVideoteca.Lgt_cURL = params.Lgt_cURL;
+        oVideoteca.Lgt_cTitulo = params.Lgt_cTitulo;
+        oVideoteca.Lgt_cComentario = params.Lgt_cComentario;
+        oVideoteca.Lgt_cEstado = params.Lgt_cEstado;
+        oVideoteca.Lgt_dFechaCrea = params.Lgt_dFechaCrea;
+
+        connection.query("CALL sp_lgm_videoteca (?,?,?,?,?,?,?,?) ", [
+            oVideoteca.Accion , oVideoteca.Emp_cCodigo, oVideoteca.Lgt_nIndice, 
+            oVideoteca.Lgt_cURL, oVideoteca.Lgt_cTitulo, oVideoteca.Lgt_cComentario , 
+            oVideoteca.Lgt_cEstado, oVideoteca.Lgt_dFechaCrea 
+        ], function (error, results, fields) {
+    
+            if (error) {
+                throw error;
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
 
 
 // export functions
@@ -166,7 +198,8 @@ module.exports = {
     getEventosCab,
     getEventosDet,
     getEventosDetPuja,
-    getCatalogoImagenes
+    getCatalogoImagenes,
+    getVideoteca
 };
 
 
