@@ -1,19 +1,18 @@
 
 const express = require("express");
-const eventoController  = require("../controllers/evento.controller.js");
+const webController  = require("../controllers/web.controller.js");
 
 
 
 const router = express.Router();
 
 
-router.post('/vtm_evento/',eventoController.getEventosCab);
-router.post('/vtd_evento/',eventoController.getEventosDet);
-router.post('/vtd_evento_puja/',eventoController.getEventosDetPuja);
-router.post('/lgd_catalogo_imagenes/',eventoController.getCatalogoImagenes);
-router.post('/lgm_videoteca/',eventoController.getVideoteca);
-
-router.post('/lgm_catalogo_bs/',eventoController.getCatalogo);
+router.post('/vtm_evento/',webController.getEventosCab);
+router.post('/vtd_evento/',webController.getEventosDet);
+router.post('/vtd_evento_puja/',webController.getEventosDetPuja);
+router.post('/lgd_catalogo_imagenes/',webController.getCatalogoImagenes);
+router.post('/lgm_videoteca/',webController.getVideoteca);
+router.post('/lgm_catalogo_bs/',webController.getCatalogo);
 
  
 module.exports = router;

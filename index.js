@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-const catalogoRoutes = require("./routes/catalogo.routes.js");
+
 const catalogsubastaRoutes = require("./routes/evento.routes.js");
 const cors=require("cors");
 
@@ -23,7 +23,7 @@ app.use(cors(corsOptions)); // Use this after the variable declaration
 app.use(bodyParser.json());
 
 // Routes
-app.use("/api/catalogo", catalogoRoutes);
+
 app.use("/api/evento", catalogsubastaRoutes );
 
 
