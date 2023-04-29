@@ -13,5 +13,7 @@ router.post('/vtd_evento_puja/',eventoController.getEventosDetPuja);
 router.post('/lgd_catalogo_imagenes/',eventoController.getCatalogoImagenes);
 router.post('/lgm_videoteca/',eventoController.getVideoteca);
 
+router.post('/lgm_catalogo_bs/',eventoController.getCatalogo);
+
  
 module.exports = router;

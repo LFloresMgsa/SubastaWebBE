@@ -4,6 +4,7 @@ const oEventoDet = require("../models/vtd_evento.js");
 const oEventoDetPuja = require("../models/vtd_evento_puja.js");
 const oVideoteca = require("../models/lgm_videoteca.js");
 const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
+const oCatalogo = require("../models/lgm_catalogo_bs.js");
 
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
@@ -24,18 +25,18 @@ const getEventosCab = async (request, response) => {
         oEventoCab.Dvm_dFin = params.Dvm_dFin;
         oEventoCab.Dvm_cEstado = params.Dvm_cEstado;
 
-    
+
         connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
-            oEventoCab.Accion , oEventoCab.Emp_cCodigo, oEventoCab.Pan_cAnio, oEventoCab.Per_cPeriodo, oEventoCab.Dvm_cNummov, 
-            oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion , oEventoCab.Dvm_dInicio, oEventoCab.Dvm_dInicio , 
+            oEventoCab.Accion, oEventoCab.Emp_cCodigo, oEventoCab.Pan_cAnio, oEventoCab.Per_cPeriodo, oEventoCab.Dvm_cNummov,
+            oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion, oEventoCab.Dvm_dInicio, oEventoCab.Dvm_dInicio,
             oEventoCab.Dvm_dFin, oEventoCab.Dvm_cEstado], function (error, results, fields) {
-    
-            if (error) {
-                throw error;
-            } else {
-                response.json(results);
-            }
-        });
+
+                if (error) {
+                    throw error;
+                } else {
+                    response.json(results);
+                }
+            });
     } catch (error) {
         response.status(500);
         response.send(error.message);
@@ -59,18 +60,18 @@ const getEventosDet = async (request, response) => {
         oEventoDet.Dvd_nImporte = params.Dvd_nImporte;
         oEventoDet.Dvd_cEstado = params.Dvd_cEstado;
 
-        
+
         connection.query("CALL sp_vtd_evento (?,?,?,?,?,?,?,?,?) ", [
-            oEventoDet.Accion , oEventoDet.Emp_cCodigo, oEventoDet.Pan_cAnio, oEventoDet.Per_cPeriodo, 
-            oEventoDet.Dvm_cNummov, oEventoDet.Cab_cCatalogo, oEventoDet.Dvd_nOrden , oEventoDet.Dvd_nImporte, oEventoDet.Dvd_cEstado], 
+            oEventoDet.Accion, oEventoDet.Emp_cCodigo, oEventoDet.Pan_cAnio, oEventoDet.Per_cPeriodo,
+            oEventoDet.Dvm_cNummov, oEventoDet.Cab_cCatalogo, oEventoDet.Dvd_nOrden, oEventoDet.Dvd_nImporte, oEventoDet.Dvd_cEstado],
             function (error, results, fields) {
-    
-            if (error) {
-                throw error;
-            } else {
-                response.json(results);
-            }
-        });
+
+                if (error) {
+                    throw error;
+                } else {
+                    response.json(results);
+                }
+            });
     } catch (error) {
         response.status(500);
         response.send(error.message);
@@ -93,23 +94,23 @@ const getEventosDetPuja = async (request, response) => {
         oEventoDetPuja.Dvd_nCorrel = params.Dvd_nCorrel;
         oEventoDetPuja.Dvd_cDocID = params.Dvd_cDocID;
         oEventoDetPuja.Dvd_cNombres = params.Dvd_cNombres;
-        oEventoDetPuja.Dvd_cApellidos= params.Dvd_cApellidos;
+        oEventoDetPuja.Dvd_cApellidos = params.Dvd_cApellidos;
 
-        oEventoDetPuja.Dvd_cTelefono= params.Dvd_cTelefono;
-        oEventoDetPuja.Dvd_cCorreo= params.Dvd_cCorreo;
-        oEventoDetPuja.Dvd_nImporte= params.Dvd_nImporte;
-        oEventoDetPuja.Dvd_cEstado= params.Dvd_cEstado;
+        oEventoDetPuja.Dvd_cTelefono = params.Dvd_cTelefono;
+        oEventoDetPuja.Dvd_cCorreo = params.Dvd_cCorreo;
+        oEventoDetPuja.Dvd_nImporte = params.Dvd_nImporte;
+        oEventoDetPuja.Dvd_cEstado = params.Dvd_cEstado;
 
-        oEventoDetPuja.Dvd_dFechaPuja= params.Dvd_dFechaPuja;
+        oEventoDetPuja.Dvd_dFechaPuja = params.Dvd_dFechaPuja;
 
-                
+
         connection.query("CALL sp_vtd_evento_puja (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
-            oEventoDetPuja.Accion , oEventoDetPuja.Emp_cCodigo, oEventoDetPuja.Pan_cAnio, oEventoDetPuja.Per_cPeriodo, 
-            oEventoDetPuja.Dvm_cNummov, oEventoDetPuja.Cab_cCatalogo, oEventoDetPuja.Dvd_nCorrel , 
-            oEventoDetPuja.Dvd_cDocID, oEventoDetPuja.Dvd_cNombres , oEventoDetPuja.Dvd_cApellidos, oEventoDetPuja.Dvd_cTelefono,
-            oEventoDetPuja.Dvd_cCorreo ,oEventoDetPuja.Dvd_nImporte ,oEventoDetPuja.Dvd_cEstado ,oEventoDetPuja.Dvd_dFechaPuja
+            oEventoDetPuja.Accion, oEventoDetPuja.Emp_cCodigo, oEventoDetPuja.Pan_cAnio, oEventoDetPuja.Per_cPeriodo,
+            oEventoDetPuja.Dvm_cNummov, oEventoDetPuja.Cab_cCatalogo, oEventoDetPuja.Dvd_nCorrel,
+            oEventoDetPuja.Dvd_cDocID, oEventoDetPuja.Dvd_cNombres, oEventoDetPuja.Dvd_cApellidos, oEventoDetPuja.Dvd_cTelefono,
+            oEventoDetPuja.Dvd_cCorreo, oEventoDetPuja.Dvd_nImporte, oEventoDetPuja.Dvd_cEstado, oEventoDetPuja.Dvd_dFechaPuja
         ], function (error, results, fields) {
-    
+
             if (error) {
                 throw error;
             } else {
@@ -137,16 +138,16 @@ const getCatalogoImagenes = async (request, response) => {
         oCatalogoImagenes.Lgt_cFamilia = params.Lgt_cFamilia;
         oCatalogoImagenes.Cab_cCatalogo = params.Cab_cCatalogo;
         oCatalogoImagenes.Cab_nItem = params.Cab_nItem;
-        oCatalogoImagenes.Cab_cEnlace= params.Cab_cEnlace;
+        oCatalogoImagenes.Cab_cEnlace = params.Cab_cEnlace;
 
-         
+
 
         connection.query("CALL sp_lgd_catalogo_imagenes (?,?,?,?,?,?,?,?,?) ", [
-            oCatalogoImagenes.Accion , oCatalogoImagenes.Emp_cCodigo, oCatalogoImagenes.Lgt_cCategoria, 
-            oCatalogoImagenes.Lgt_cGrupo, oCatalogoImagenes.Lgt_cClase, oCatalogoImagenes.Lgt_cFamilia , 
-            oCatalogoImagenes.Cab_cCatalogo, oCatalogoImagenes.Cab_nItem , oCatalogoImagenes.Cab_cEnlace
+            oCatalogoImagenes.Accion, oCatalogoImagenes.Emp_cCodigo, oCatalogoImagenes.Lgt_cCategoria,
+            oCatalogoImagenes.Lgt_cGrupo, oCatalogoImagenes.Lgt_cClase, oCatalogoImagenes.Lgt_cFamilia,
+            oCatalogoImagenes.Cab_cCatalogo, oCatalogoImagenes.Cab_nItem, oCatalogoImagenes.Cab_cEnlace
         ], function (error, results, fields) {
-    
+
             if (error) {
                 throw error;
             } else {
@@ -175,11 +176,11 @@ const getVideoteca = async (request, response) => {
         oVideoteca.Lgt_dFechaCrea = params.Lgt_dFechaCrea;
 
         connection.query("CALL sp_lgm_videoteca (?,?,?,?,?,?,?,?) ", [
-            oVideoteca.Accion , oVideoteca.Emp_cCodigo, oVideoteca.Lgt_nIndice, 
-            oVideoteca.Lgt_cURL, oVideoteca.Lgt_cTitulo, oVideoteca.Lgt_cComentario , 
-            oVideoteca.Lgt_cEstado, oVideoteca.Lgt_dFechaCrea 
+            oVideoteca.Accion, oVideoteca.Emp_cCodigo, oVideoteca.Lgt_nIndice,
+            oVideoteca.Lgt_cURL, oVideoteca.Lgt_cTitulo, oVideoteca.Lgt_cComentario,
+            oVideoteca.Lgt_cEstado, oVideoteca.Lgt_dFechaCrea
         ], function (error, results, fields) {
-    
+
             if (error) {
                 throw error;
             } else {
@@ -192,14 +193,57 @@ const getVideoteca = async (request, response) => {
     }
 };
 
+const getCatalogo = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
 
+        var params = request.body;
+        oCatalogo.Accion = params.Accion;
+        oCatalogo.Emp_cCodigo = params.Emp_cCodigo;
+        oCatalogo.Lgt_cCategoria = params.Lgt_cCategoria;
+        oCatalogo.Lgt_cGrupo = params.Lgt_cGrupo;
+        oCatalogo.Lgt_cClase = params.Lgt_cClase;
+
+        oCatalogo.Lgt_cFamilia = params.Lgt_cFamilia;
+        oCatalogo.Cab_cCatalogo = params.Cab_cCatalogo;
+        oCatalogo.Cab_cDescripcion = params.Cab_cDescripcion;
+        oCatalogo.Propietario = params.Propietario;
+
+        oCatalogo.Padre = params.Padre;
+        oCatalogo.Madre = params.Madre;
+        oCatalogo.Info = params.Info;
+        oCatalogo.Placa = params.Placa;
+
+
+
+        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+            oCatalogo.Accion, oCatalogo.Emp_cCodigo, oCatalogo.Lgt_cCategoria,
+            oCatalogo.Lgt_cGrupo, oCatalogo.Lgt_cClase, oCatalogo.Lgt_cFamilia,
+            oCatalogo.Cab_cCatalogo, oCatalogo.Cab_cDescripcion, oCatalogo.Propietario,
+            oCatalogo.Padre, oCatalogo.Madre, oCatalogo.Info,
+            oCatalogo.Placa,
+        ], function (error, results, fields) {
+
+            if (error) {
+                throw error;
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
 // export functions
 module.exports = {
     getEventosCab,
     getEventosDet,
     getEventosDetPuja,
     getCatalogoImagenes,
-    getVideoteca
+    getVideoteca,
+    getCatalogo
 };
 
 
