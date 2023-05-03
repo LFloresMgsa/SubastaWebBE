@@ -5,6 +5,7 @@ const oEventoDetPuja = require("../models/vtd_evento_puja.js");
 const oVideoteca = require("../models/lgm_videoteca.js");
 const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
 const oCatalogo = require("../models/lgm_catalogo_bs.js");
+const ouUsuario = require("../models/sgm_usuarios.js");
 
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
@@ -236,6 +237,36 @@ const getCatalogo = async (request, response) => {
         response.send(error.message);
     }
 };
+
+const getUsuario = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        ouUsuario.Accion = params.Accion;
+        ouUsuario.Sgm_cUsuario = params.Sgm_cUsuario;
+        ouUsuario.Sgm_cNombre = params.Sgm_cNombre;
+        ouUsuario.Sgm_cContrasena = params.Sgm_cContrasena;
+        ouUsuario.Sgm_cObservaciones = params.Sgm_cObservaciones;
+
+        connection.query("CALL sp_sgm_usuarios (?,?,?,?,?) ", [
+            ouUsuario.Accion, ouUsuario.Sgm_cUsuario, ouUsuario.Sgm_cNombre,
+            ouUsuario.Sgm_cContrasena, ouUsuario.Sgm_cObservaciones
+        ], function (error, results, fields) {
+
+            if (error) {
+                throw error;
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
+
 // export functions
 module.exports = {
     getEventosCab,
@@ -243,7 +274,8 @@ module.exports = {
     getEventosDetPuja,
     getCatalogoImagenes,
     getVideoteca,
-    getCatalogo
+    getCatalogo,
+    getUsuario
 };
 
 
