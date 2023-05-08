@@ -7,6 +7,8 @@ const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
 const oCatalogo = require("../models/lgm_catalogo_bs.js");
 const ouUsuario = require("../models/sgm_usuarios.js");
 
+
+
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
     try {
@@ -266,6 +268,7 @@ const getUsuario = async (request, response) => {
         response.send(error.message);
     }
 };
+
 
 // export functions
 module.exports = {

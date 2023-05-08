@@ -2,6 +2,7 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const JWT = require("jsonwebtoken")
 
 const catalogsubastaRoutes = require("./routes/evento.routes.js");
 const cors=require("cors");
