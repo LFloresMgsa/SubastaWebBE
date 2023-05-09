@@ -15,6 +15,7 @@ router.post('/vtd_evento_puja/',webController.getEventosDetPuja);
 router.post('/lgd_catalogo_imagenes/',webController.getCatalogoImagenes);
 router.post('/lgm_videoteca/',webController.getVideoteca);
 router.post('/sgm_usuarios/',webController.getUsuario);
+router.post('/lgm_imagenes/',webController.getImagenes);
 router.post('/auth/',authorization.token);
 
 // servicios con seguridad JWT

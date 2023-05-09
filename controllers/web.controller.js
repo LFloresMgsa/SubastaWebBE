@@ -6,7 +6,7 @@ const oVideoteca = require("../models/lgm_videoteca.js");
 const oCatalogoImagenes = require("../models/lgd_catalogo_imagenes.js");
 const oCatalogo = require("../models/lgm_catalogo_bs.js");
 const ouUsuario = require("../models/sgm_usuarios.js");
-
+const oImagenes = require("../models/lgm_imagenes.js");
 
 
 // get all data api with store procedure
@@ -269,7 +269,37 @@ const getUsuario = async (request, response) => {
     }
 };
 
+const getImagenes = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
 
+        var params = request.body;
+        oImagenes.Accion = params.Accion;
+        oImagenes.Emp_cCodigo = params.Emp_cCodigo;
+        oImagenes.Lgt_nIndice = params.Lgt_nIndice;
+        oImagenes.Lgt_cTitulo = params.Lgt_cTitulo;
+        oImagenes.Lgt_cComentario = params.Lgt_cComentario;
+        oImagenes.Lgt_cEstado = params.Lgt_cEstado;
+        oImagenes.Lgt_dFechaCrea = params.Lgt_dFechaCrea;
+
+        connection.query("CALL sp_lgm_imagenes (?,?,?,?,?,?,?) ", [
+            oImagenes.Accion, oImagenes.Emp_cCodigo, oImagenes.Lgt_nIndice,
+            oImagenes.Lgt_cTitulo, oImagenes.Lgt_cComentario,
+            oImagenes.Lgt_cEstado, oImagenes.Lgt_dFechaCrea
+        ], function (error, results, fields) {
+
+            if (error) {
+                throw error;
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
 // export functions
 module.exports = {
     getEventosCab,
@@ -278,7 +308,8 @@ module.exports = {
     getCatalogoImagenes,
     getVideoteca,
     getCatalogo,
-    getUsuario
+    getUsuario,
+    getImagenes
 };
 
 
