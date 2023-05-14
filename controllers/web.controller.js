@@ -31,8 +31,8 @@ const getEventosCab = async (request, response) => {
 
         connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
             oEventoCab.Accion, oEventoCab.Emp_cCodigo, oEventoCab.Pan_cAnio, oEventoCab.Per_cPeriodo, oEventoCab.Dvm_cNummov,
-            oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion, oEventoCab.Dvm_dInicio, oEventoCab.Dvm_dInicio,
-            oEventoCab.Dvm_dFin, oEventoCab.Dvm_cEstado], function (error, results, fields) {
+            oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion, oEventoCab.Dvm_dInicio,
+            oEventoCab.Dvm_dFin,oEventoCab.Dvm_cEstado], function (error, results, fields) {
 
                 if (error) {
                     throw error;
