@@ -48,7 +48,7 @@ const token = async (request, response) => {
         const token = JWT.sign({ Sgm_cUsuario }, "nfb32iur32ibfqfvi3vf932bg932g932", { expiresIn: 360000 });
 
 
-        console.log(token);
+       // console.log(token);
         
         response.json({
             token
