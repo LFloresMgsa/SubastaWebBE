@@ -32,10 +32,12 @@ const getEventosCab = async (request, response) => {
         connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
             oEventoCab.Accion, oEventoCab.Emp_cCodigo, oEventoCab.Pan_cAnio, oEventoCab.Per_cPeriodo, oEventoCab.Dvm_cNummov,
             oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion, oEventoCab.Dvm_dInicio,
-            oEventoCab.Dvm_dFin,oEventoCab.Dvm_cEstado], function (error, results, fields) {
+            oEventoCab.Dvm_dFin, oEventoCab.Dvm_cEstado], function (error, results, fields) {
 
                 if (error) {
-                    throw error;
+
+                    response.json({ error: error.message });
+
                 } else {
                     response.json(results);
                 }
@@ -70,7 +72,9 @@ const getEventosDet = async (request, response) => {
             function (error, results, fields) {
 
                 if (error) {
-                    throw error;
+
+                    response.json({ error: error.message });
+
                 } else {
                     response.json(results);
                 }
@@ -115,7 +119,9 @@ const getEventosDetPuja = async (request, response) => {
         ], function (error, results, fields) {
 
             if (error) {
-                throw error;
+
+                response.json({ error: error.message });
+
             } else {
                 response.json(results);
             }
@@ -152,7 +158,9 @@ const getCatalogoImagenes = async (request, response) => {
         ], function (error, results, fields) {
 
             if (error) {
-                throw error;
+
+                response.json({ error: error.message });
+
             } else {
                 response.json(results);
             }
@@ -185,7 +193,9 @@ const getVideoteca = async (request, response) => {
         ], function (error, results, fields) {
 
             if (error) {
-                throw error;
+
+                response.json({ error: error.message });
+
             } else {
                 response.json(results);
             }
@@ -229,12 +239,15 @@ const getCatalogo = async (request, response) => {
         ], function (error, results, fields) {
 
             if (error) {
-                throw error;
+
+                response.json({ error: error.message });
+
             } else {
                 response.json(results);
             }
         });
     } catch (error) {
+
         response.status(500);
         response.send(error.message);
     }
@@ -258,7 +271,9 @@ const getUsuario = async (request, response) => {
         ], function (error, results, fields) {
 
             if (error) {
-                throw error;
+
+                response.json({ error: error.message });
+
             } else {
                 response.json(results);
             }
