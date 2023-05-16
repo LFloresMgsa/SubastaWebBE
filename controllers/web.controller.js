@@ -89,6 +89,7 @@ const getEventosDetPuja = async (request, response) => {
     try {
         // create mysql connection
         const connection = await db.getConnection();
+        let outputParam1 = '';
 
         var params = request.body;
         oEventoDetPuja.Accion = params.Accion;
@@ -123,8 +124,11 @@ const getEventosDetPuja = async (request, response) => {
                 response.json({ error: error.message });
 
             } else {
+
                 response.json(results);
             }
+
+
         });
     } catch (error) {
         response.status(500);
