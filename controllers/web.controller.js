@@ -333,7 +333,7 @@ const getPedidoCab = async (request, response) => {
         oPedidoCab.Emp_cCodigo = params.Emp_cCodigo;
         oPedidoCab.Pan_cAnio = params.Pan_cAnio;
         oPedidoCab.Per_cPeriodo = params.Per_cPeriodo;
-        oPedidoCab.Dvm_cNummov = params.Dvm_cNummov;
+        oPedidoCab.Pdm_cNummov = params.Pdm_cNummov;
 
         oPedidoCab.Cli_cNombre = params.Cli_cNombre;
         oPedidoCab.Cli_cApellido = params.Cli_cApellido;
@@ -347,7 +347,7 @@ const getPedidoCab = async (request, response) => {
         oPedidoCab.Pdm_dFecha = params.Pdm_dFecha;
 
 
-        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+        connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
             oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
             oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha
@@ -386,7 +386,7 @@ const getPedidoDet = async (request, response) => {
         oPedidoDet.Pdd_nPrecioNeto = params.Pdd_nPrecioNeto;
 
 
-        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
+        connection.query("CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?) ", [
             oPedidoDet.Accion,oPedidoDet.Emp_cCodigo ,oPedidoDet.Pan_cAnio, oPedidoDet.Dvm_cNummov ,
             oPedidoDet.Pdd_nItem , oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
             oPedidoDet.Pdd_nPrecioNeto
