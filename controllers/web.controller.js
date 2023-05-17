@@ -8,6 +8,9 @@ const oCatalogo = require("../models/lgm_catalogo_bs.js");
 const ouUsuario = require("../models/sgm_usuarios.js");
 const oImagenes = require("../models/lgm_imagenes.js");
 
+const oPedidoCab = require("../models/vtm_pedido.js");
+const oPedidoDet = require("../models/vtd_pedido.js");
+
 
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
@@ -319,6 +322,91 @@ const getImagenes = async (request, response) => {
         response.send(error.message);
     }
 };
+
+const getPedidoCab = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        oPedidoCab.Accion = params.Accion;
+        oPedidoCab.Emp_cCodigo = params.Emp_cCodigo;
+        oPedidoCab.Pan_cAnio = params.Pan_cAnio;
+        oPedidoCab.Per_cPeriodo = params.Per_cPeriodo;
+        oPedidoCab.Dvm_cNummov = params.Dvm_cNummov;
+
+        oPedidoCab.Cli_cNombre = params.Cli_cNombre;
+        oPedidoCab.Cli_cApellido = params.Cli_cApellido;
+        oPedidoCab.Cli_cDocId = params.Cli_cDocId;
+        oPedidoCab.Pdm_cDireccion = params.Pdm_cDireccion;
+        oPedidoCab.Pdm_cDistrito = params.Pdm_cDistrito;
+        oPedidoCab.Pdm_cDepartamento = params.Pdm_cDepartamento;
+        oPedidoCab.Cli_cTelefono = params.Cli_cTelefono;
+        oPedidoCab.Cli_cCorreo = params.Cli_cCorreo;
+        oPedidoCab.Pdm_cComentario = params.Pdm_cComentario;
+        oPedidoCab.Pdm_dFecha = params.Pdm_dFecha;
+
+
+        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+            oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
+            oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
+            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha
+        ], function (error, results, fields) {
+
+                if (error) {
+
+                    response.json({ error: error.message });
+
+                } else {
+                    response.json(results);
+                }
+            });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
+
+const getPedidoDet = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        oPedidoDet.Accion = params.Accion;
+        oPedidoDet.Emp_cCodigo = params.Emp_cCodigo;
+        oPedidoDet.Pan_cAnio = params.Pan_cAnio;
+        oPedidoDet.Dvm_cNummov = params.Dvm_cNummov;
+
+        oPedidoDet.Pdd_nItem = params.Pdd_nItem;
+        oPedidoDet.Pdd_nCantidad = params.Pdd_nCantidad;
+        oPedidoDet.Cab_cCatalogo = params.Cab_cCatalogo;
+        oPedidoDet.Pdd_cDescripcion = params.Pdd_cDescripcion;
+        oPedidoDet.Pdd_nPrecioUnitario = params.Pdd_nPrecioUnitario;
+        oPedidoDet.Pdd_nPrecioNeto = params.Pdd_nPrecioNeto;
+
+
+        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
+            oPedidoDet.Accion,oPedidoDet.Emp_cCodigo ,oPedidoDet.Pan_cAnio, oPedidoDet.Dvm_cNummov ,
+            oPedidoDet.Pdd_nItem , oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
+            oPedidoDet.Pdd_nPrecioNeto
+        ], function (error, results, fields) {
+
+                if (error) {
+
+                    response.json({ error: error.message });
+
+                } else {
+                    response.json(results);
+                }
+            });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
+
+
 // export functions
 module.exports = {
     getEventosCab,
@@ -328,7 +416,9 @@ module.exports = {
     getVideoteca,
     getCatalogo,
     getUsuario,
-    getImagenes
+    getImagenes,
+    getPedidoCab,
+    getPedidoDet
 };
 
 
