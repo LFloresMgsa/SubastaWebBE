@@ -346,11 +346,13 @@ const getPedidoCab = async (request, response) => {
         oPedidoCab.Pdm_cComentario = params.Pdm_cComentario;
         oPedidoCab.Pdm_dFecha = params.Pdm_dFecha;
 
+        oPedidoCab.Pdm_cEstado = params.Pdm_cEstado;
 
-        connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+
+        connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
             oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
-            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha
+            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
         ], function (error, results, fields) {
 
                 if (error) {
@@ -406,6 +408,52 @@ const getPedidoDet = async (request, response) => {
     }
 };
 
+const getGrabarPedido = async (request, response) => {
+    try {
+        // create mysql connection
+        const connection = await db.getConnection();
+
+        var params = request.body;
+        oPedidoCab.Accion = params.Accion;
+        oPedidoCab.Emp_cCodigo = params.Emp_cCodigo;
+        oPedidoCab.Pan_cAnio = params.Pan_cAnio;
+        oPedidoCab.Per_cPeriodo = params.Per_cPeriodo;
+        oPedidoCab.Pdm_cNummov = params.Pdm_cNummov;
+
+        oPedidoCab.Cli_cNombre = params.Cli_cNombre;
+        oPedidoCab.Cli_cApellido = params.Cli_cApellido;
+        oPedidoCab.Cli_cDocId = params.Cli_cDocId;
+        oPedidoCab.Pdm_cDireccion = params.Pdm_cDireccion;
+        oPedidoCab.Pdm_cDistrito = params.Pdm_cDistrito;
+        oPedidoCab.Pdm_cDepartamento = params.Pdm_cDepartamento;
+        oPedidoCab.Cli_cTelefono = params.Cli_cTelefono;
+        oPedidoCab.Cli_cCorreo = params.Cli_cCorreo;
+        oPedidoCab.Pdm_cComentario = params.Pdm_cComentario;
+        oPedidoCab.Pdm_dFecha = params.Pdm_dFecha;
+
+        oPedidoCab.Pdm_cEstado = params.Pdm_cEstado;
+
+
+        connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+            oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
+            oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
+            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
+        ], function (error, results, fields) {
+
+                if (error) {
+
+                    response.json({ error: error.message });
+
+                } else {
+                    response.json(results);
+                }
+            });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
+
 
 // export functions
 module.exports = {
@@ -418,7 +466,8 @@ module.exports = {
     getUsuario,
     getImagenes,
     getPedidoCab,
-    getPedidoDet
+    getPedidoDet,
+    getGrabarPedido
 };
 
 

@@ -21,6 +21,9 @@ router.post('/auth/',authorization.token);
 router.post('/vtm_pedido/',webController.getPedidoCab);
 router.post('/vtd_pedido/',webController.getPedidoDet);
 
+router.post('/pedido/',webController.getGrabarPedido);
+
+
 // servicios con seguridad JWT
 router.post('/lgm_catalogo_bs/auth/',checkAuth,webController.getCatalogo);
 router.post('/vtm_evento/auth/',checkAuth,webController.getEventosCab);
@@ -29,7 +32,7 @@ router.post('/vtd_evento_puja/auth/',checkAuth,webController.getEventosDetPuja);
 router.post('/lgd_catalogo_imagenes/auth/',checkAuth,webController.getCatalogoImagenes);
 router.post('/lgm_videoteca/auth/',checkAuth,webController.getVideoteca);
 
-router.post('/vtm_pedido/',checkAuth,webController.getPedidoCab);
-router.post('/vtd_pedido/',checkAuth,webController.getPedidoDet);
+router.post('/vtm_pedido/auth/',checkAuth,webController.getPedidoCab);
+router.post('/vtd_pedido/auth/',checkAuth,webController.getPedidoDet);
  
 module.exports = router;
