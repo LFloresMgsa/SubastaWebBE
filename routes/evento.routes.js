@@ -21,7 +21,7 @@ router.post('/auth/',authorization.token);
 router.post('/vtm_pedido/',webController.getPedidoCab);
 router.post('/vtd_pedido/',webController.getPedidoDet);
 
-router.post('/pedido/',webController.getGrabarPedido);
+router.post('/FinalizarCompra/',webController.getGrabarPedido);
 
 
 // servicios con seguridad JWT

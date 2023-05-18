@@ -1,3 +1,4 @@
+
 const db = require("../database/db.js");
 const oEventoCab = require("../models/vtm_evento.js");
 const oEventoDet = require("../models/vtd_evento.js");
@@ -350,19 +351,19 @@ const getPedidoCab = async (request, response) => {
 
 
         connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
-            oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
-            oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
-            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
+            oPedidoCab.Accion, oPedidoCab.Emp_cCodigo, oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov,
+            oPedidoCab.Cli_cNombre, oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
+            oPedidoCab.Pdm_cDepartamento, oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario, oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
         ], function (error, results, fields) {
 
-                if (error) {
+            if (error) {
 
-                    response.json({ error: error.message });
+                response.json({ error: error.message });
 
-                } else {
-                    response.json(results);
-                }
-            });
+            } else {
+                response.json(results);
+            }
+        });
     } catch (error) {
         response.status(500);
         response.send(error.message);
@@ -389,19 +390,19 @@ const getPedidoDet = async (request, response) => {
 
 
         connection.query("CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?) ", [
-            oPedidoDet.Accion,oPedidoDet.Emp_cCodigo ,oPedidoDet.Pan_cAnio, oPedidoDet.Dvm_cNummov ,
-            oPedidoDet.Pdd_nItem , oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
+            oPedidoDet.Accion, oPedidoDet.Emp_cCodigo, oPedidoDet.Pan_cAnio, oPedidoDet.Dvm_cNummov,
+            oPedidoDet.Pdd_nItem, oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
             oPedidoDet.Pdd_nPrecioNeto
         ], function (error, results, fields) {
 
-                if (error) {
+            if (error) {
 
-                    response.json({ error: error.message });
+                response.json({ error: error.message });
 
-                } else {
-                    response.json(results);
-                }
-            });
+            } else {
+                response.json(results);
+            }
+        });
     } catch (error) {
         response.status(500);
         response.send(error.message);
@@ -409,11 +410,17 @@ const getPedidoDet = async (request, response) => {
 };
 
 const getGrabarPedido = async (request, response) => {
+
+    let _cPdm_cNummov;
+
     try {
+
         // create mysql connection
         const connection = await db.getConnection();
 
-        var params = request.body;
+        //#region Cabecera Parametros
+        let params = request.body.cabecera;
+
         oPedidoCab.Accion = params.Accion;
         oPedidoCab.Emp_cCodigo = params.Emp_cCodigo;
         oPedidoCab.Pan_cAnio = params.Pan_cAnio;
@@ -432,22 +439,90 @@ const getGrabarPedido = async (request, response) => {
         oPedidoCab.Pdm_dFecha = params.Pdm_dFecha;
 
         oPedidoCab.Pdm_cEstado = params.Pdm_cEstado;
+        //#endregion
 
+        //#region Busca numero  movimiento pedido
 
         connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
-            oPedidoCab.Accion,oPedidoCab.Emp_cCodigo ,oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Dvm_cNummov ,
-            oPedidoCab.Cli_cNombre , oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
-            oPedidoCab.Pdm_cDepartamento , oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario , oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
+            "CORRELATIVO", oPedidoCab.Emp_cCodigo, oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, oPedidoCab.Pdm_cNummov,
+            oPedidoCab.Cli_cNombre, oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
+            oPedidoCab.Pdm_cDepartamento, oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario, oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
         ], function (error, results, fields) {
+            if (error) {
+                response.json({ error: error.message });
 
-                if (error) {
+            } else {
 
-                    response.json({ error: error.message });
+                results[0].forEach((row) => {
+                    _cPdm_cNummov = row.Pdm_cNummov;
+                });
 
-                } else {
-                    response.json(results);
+                //#region Cabecera pedido
+
+                connection.query("CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+                    "INSERTAR", oPedidoCab.Emp_cCodigo, oPedidoCab.Pan_cAnio, oPedidoCab.Per_cPeriodo, _cPdm_cNummov,
+                    oPedidoCab.Cli_cNombre, oPedidoCab.Cli_cApellido, oPedidoCab.Cli_cDocId, oPedidoCab.Pdm_cDireccion, oPedidoCab.Pdm_cDistrito,
+                    oPedidoCab.Pdm_cDepartamento, oPedidoCab.Cli_cTelefono, oPedidoCab.Cli_cCorreo, oPedidoCab.Pdm_cComentario, oPedidoCab.Pdm_dFecha, oPedidoCab.Pdm_cEstado
+                ], function (error, results, fields) {
+
+                    if (error) {
+                        response.json({ error: error.message });
+                    }
+                });
+                //#endregion
+
+
+                //#region Detalle Parametros
+
+
+                var jsonData = request.body.detalle;
+
+
+                // console.log(jsonData);
+
+
+
+                for (let i = 0; i < jsonData.length; i++) {
+                    const paramsDet = jsonData[i];
+
+                    oPedidoDet.Accion = paramsDet.Accion;
+                    oPedidoDet.Emp_cCodigo = paramsDet.Emp_cCodigo;
+                    oPedidoDet.Pan_cAnio = paramsDet.Pan_cAnio;
+                    oPedidoDet.Dvm_cNummov = paramsDet.Dvm_cNummov;
+
+                    oPedidoDet.Pdd_nItem = i + 1;
+                    oPedidoDet.Pdd_nCantidad = paramsDet.Pdd_nCantidad;
+                    oPedidoDet.Cab_cCatalogo = paramsDet.Cab_cCatalogo;
+                    oPedidoDet.Pdd_cDescripcion = paramsDet.Cab_cDescripcion;
+                    oPedidoDet.Pdd_nPrecioUnitario = paramsDet.Dvd_nImporte;
+                    oPedidoDet.Pdd_nPrecioNeto = paramsDet.Dvd_nImporte*paramsDet.quantity ;
+
+                    connection.query("CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?) ", [
+                        "INSERTAR", oPedidoDet.Emp_cCodigo, oPedidoDet.Pan_cAnio, _cPdm_cNummov,
+                        oPedidoDet.Pdd_nItem, oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
+                        oPedidoDet.Pdd_nPrecioNeto
+                    ], function (error, results, fields) {
+                        if (error) {
+                            response.json({ error: error.message });
+                        } 
+                    });
                 }
-            });
+            }
+        });
+        //#endregion
+
+
+        response.json({ message: 'OK' });
+
+
+
+
+        //#endregion        
+
+        //#region Detalle pedido        
+
+        //#endregion        
+
     } catch (error) {
         response.status(500);
         response.send(error.message);
