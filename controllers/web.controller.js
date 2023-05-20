@@ -1,3 +1,8 @@
+/*-------------------------------------------------
+Componente: Procedimientos No Transaccionales
+-------------------------------------------------*/
+
+
 const db = require("../database/db.js");
 
 const oEventoCab = require("../models/vtm_evento.js");

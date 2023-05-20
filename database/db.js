@@ -1,8 +1,8 @@
 
-const connectionConfig = require("../database/dbStringConection");
+const connectionConfig = require("../database/StringConection");
 const mysql = require("mysql");
 
-const connection = mysql.createConnection(connectionConfig);
+const connection = mysql.createConnection(connectionConfig.dbStringConection());
 
 
 const getConnection = () => {

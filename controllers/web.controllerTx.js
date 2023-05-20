@@ -1,4 +1,9 @@
-const bd = require("../database/dbStringConection");
+/*-------------------------------------------------
+Componente: Procedimientos Transaccionales
+-------------------------------------------------*/
+
+
+const bd = require("../database/StringConection");
 const mysqlTx = require('mysql2/promise');
 
 // Función para ejecutar una consulta en la conexión establecida
@@ -119,8 +124,6 @@ async function GrabaPedido(paramsCab, paramsDet) {
     }
 }
 
-
-
 const getGrabarPedido = async (request, response) => {
     let paramsCab = request.body.cabecera;
     let paramsDet = request.body.detalle;
@@ -133,8 +136,6 @@ const getGrabarPedido = async (request, response) => {
         response.status(500);
         response.send(error.message);
     }
-
-
 };
 
 
