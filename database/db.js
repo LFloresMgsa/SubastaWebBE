@@ -1,17 +1,19 @@
 
+const connectionConfig = require("../database/dbStringConection");
 const mysql = require("mysql");
 
-const connection = mysql.createConnection({
-    host: '172.16.0.4',
-    database: 'advisor',
-    user: 'backend',
-    password: '1q2w3e4r5t.'
-});
+const connection = mysql.createConnection(connectionConfig);
+
 
 const getConnection = () => {
     return connection;
 };
 
+const getCadena = () => {
+    return connectionConfig;
+};
+
 module.exports = {
-    getConnection
+    getConnection,
+    getCadena
 }; 
