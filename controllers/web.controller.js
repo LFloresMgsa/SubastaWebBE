@@ -384,7 +384,7 @@ const getPedidoDet = async (request, response) => {
         oPedidoDet.Accion = params.Accion;
         oPedidoDet.Emp_cCodigo = params.Emp_cCodigo;
         oPedidoDet.Pan_cAnio = params.Pan_cAnio;
-        oPedidoDet.Dvm_cNummov = params.Dvm_cNummov;
+        oPedidoDet.Pdm_cNummov = params.Pdm_cNummov;
 
         oPedidoDet.Pdd_nItem = params.Pdd_nItem;
         oPedidoDet.Pdd_nCantidad = params.Pdd_nCantidad;
@@ -395,7 +395,7 @@ const getPedidoDet = async (request, response) => {
 
 
         connection.query("CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?) ", [
-            oPedidoDet.Accion, oPedidoDet.Emp_cCodigo, oPedidoDet.Pan_cAnio, oPedidoDet.Dvm_cNummov,
+            oPedidoDet.Accion, oPedidoDet.Emp_cCodigo, oPedidoDet.Pan_cAnio, oPedidoDet.Pdm_cNummov,
             oPedidoDet.Pdd_nItem, oPedidoDet.Pdd_nCantidad, oPedidoDet.Cab_cCatalogo, oPedidoDet.Pdd_cDescripcion, oPedidoDet.Pdd_nPrecioUnitario,
             oPedidoDet.Pdd_nPrecioNeto
         ], function (error, results, fields) {
