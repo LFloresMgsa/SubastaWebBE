@@ -2,8 +2,7 @@
 const connectionConfig = {
     host: '172.16.30.2',
     database: 'advisor',
-    user: 'evento',
-    port:3306,    
+    user: 'backend',
     password: '1q2w3e4r5t.'
 };
 
