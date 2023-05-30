@@ -1,6 +1,8 @@
 /*-------------------------------------------------
 Componente: Procedimientos No Transaccionales
 -------------------------------------------------*/
+const mysql = require("mysql");
+const sc = require("../database/StringConection");
 
 
 const db = require("../database/db.js");
@@ -20,9 +22,10 @@ const oPedidoDet = require("../models/vtd_pedido.js");
 
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oEventoCab.Accion = params.Accion;
@@ -54,13 +57,18 @@ const getEventosCab = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getEventosDet = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oEventoDet.Accion = params.Accion;
@@ -91,13 +99,19 @@ const getEventosDet = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getEventosDetPuja = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
+
         let outputParam1 = '';
 
         var params = request.body;
@@ -142,13 +156,18 @@ const getEventosDetPuja = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getCatalogoImagenes = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oCatalogoImagenes.Accion = params.Accion;
@@ -181,13 +200,18 @@ const getCatalogoImagenes = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getVideoteca = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oVideoteca.Accion = params.Accion;
@@ -216,13 +240,18 @@ const getVideoteca = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getCatalogo = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oCatalogo.Accion = params.Accion;
@@ -263,13 +292,18 @@ const getCatalogo = async (request, response) => {
 
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getUsuario = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         ouUsuario.Accion = params.Accion;
@@ -294,13 +328,18 @@ const getUsuario = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getImagenes = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oImagenes.Accion = params.Accion;
@@ -326,13 +365,18 @@ const getImagenes = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getPedidoCab = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oPedidoCab.Accion = params.Accion;
@@ -372,13 +416,18 @@ const getPedidoCab = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
 const getPedidoDet = async (request, response) => {
+    let connection;
     try {
         // create mysql connection
-        const connection = await db.getConnection();
+        connection = await mysql.createConnection(sc.dbStringConection());
 
         var params = request.body;
         oPedidoDet.Accion = params.Accion;
@@ -411,6 +460,10 @@ const getPedidoDet = async (request, response) => {
     } catch (error) {
         response.status(500);
         response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
     }
 };
 
