@@ -134,6 +134,7 @@ const getEventosDetPuja = async (request, response) => {
 
         oEventoDetPuja.Dvd_dFechaPuja = params.Dvd_dFechaPuja;
 
+        
 
         connection.query("CALL sp_vtd_evento_puja (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oEventoDetPuja.Accion, oEventoDetPuja.Emp_cCodigo, oEventoDetPuja.Pan_cAnio, oEventoDetPuja.Per_cPeriodo,
