@@ -414,6 +414,19 @@ const getPedidoDet = async (request, response) => {
     }
 };
 
+const getTime = async (request, response) => {
+    try {
+        const currentTime = new Date().toLocaleTimeString();
+        response.json({ time: currentTime });
+
+
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    }
+};
+
+
 // export functions
 module.exports = {
     getEventosCab,
@@ -425,7 +438,8 @@ module.exports = {
     getUsuario,
     getImagenes,
     getPedidoCab,
-    getPedidoDet
+    getPedidoDet,
+    getTime
 };
 
 

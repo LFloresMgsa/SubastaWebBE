@@ -30,6 +30,8 @@ router.post('/auth/',authorization.token);
 router.post('/vtm_pedido/',webController.getPedidoCab);
 router.post('/vtd_pedido/',webController.getPedidoDet);
 
+router.post('/time/',webController.getTime);
+
 // servicios con seguridad JWT
 router.post('/lgm_catalogo_bs/auth/',checkAuth,webController.getCatalogo);
 router.post('/vtm_evento/auth/',checkAuth,webController.getEventosCab);
