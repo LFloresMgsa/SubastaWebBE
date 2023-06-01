@@ -82,10 +82,18 @@ const getEventosDet = async (request, response) => {
         oEventoDet.Dvd_nImporte = params.Dvd_nImporte;
         oEventoDet.Dvd_cEstado = params.Dvd_cEstado;
 
+        oEventoDet.Dvd_dInicio= params.Dvd_dInicio;
+        oEventoDet.Dvd_dFin= params.Dvd_dFin;
+        oEventoDet.Dvd_cComentario= params.Dvd_cComentario;
+        oEventoDet.Dvd_dFechaCrea= params.Dvd_dFechaCrea;
+        oEventoDet.Dvd_dFechaModifica= params.Dvd_dFechaModifica;
+        oEventoDet.Dvd_cUserCrea= params.Dvd_cUserCrea;
+        oEventoDet.Dvd_CUserModifica= params.Dvd_CUserModifica;
 
-        connection.query("CALL sp_vtd_evento (?,?,?,?,?,?,?,?,?) ", [
+        connection.query("CALL sp_vtd_evento (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oEventoDet.Accion, oEventoDet.Emp_cCodigo, oEventoDet.Pan_cAnio, oEventoDet.Per_cPeriodo,
-            oEventoDet.Dvm_cNummov, oEventoDet.Cab_cCatalogo, oEventoDet.Dvd_nOrden, oEventoDet.Dvd_nImporte, oEventoDet.Dvd_cEstado],
+            oEventoDet.Dvm_cNummov, oEventoDet.Cab_cCatalogo, oEventoDet.Dvd_nOrden, oEventoDet.Dvd_nImporte, oEventoDet.Dvd_cEstado,
+            oEventoDet.Dvd_dInicio, oEventoDet.Dvd_dFin, oEventoDet.Dvd_cComentario, oEventoDet.Dvd_dFechaCrea,, oEventoDet.Dvd_dFechaModifica, oEventoDet.Dvd_cUserCrea, oEventoDet.Dvd_CUserModifica ],
             function (error, results, fields) {
 
                 if (error) {
