@@ -1,6 +1,6 @@
 
 const connectionConfig = {
-    host: '172.31.19.194',
+    host: '172.16.0.4',
     database: 'advisor',
     port:3306,
     user: 'evento',
