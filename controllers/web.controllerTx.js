@@ -45,16 +45,22 @@ async function rollbackTransaction(connection) {
 
 // Función para ejecutar el procedimiento almacenado de cabecera
 async function executeGrabaCabecera(connection, params) {
-    const query = "CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+    const query = "CALL sp_vtm_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
     try {
         const [results] = await executeQuery(connection, query, [
-            "INSERTAR", params.Emp_cCodigo, params.Pan_cAnio,
+            "INSERTAR", 
+            params.Emp_cCodigo, 
+            params.Pan_cAnio,
             params.Per_cPeriodo, params.Pdm_cNummov,
             params.Cli_cNombre, params.Cli_cApellido,
             params.Cli_cDocId, params.Pdm_cDireccion,
             params.Pdm_cDistrito, params.Pdm_cDepartamento,
             params.Cli_cTelefono, params.Cli_cCorreo,
-            params.Pdm_cComentario, params.Pdm_dFecha, params.Pdm_cEstado
+            params.Pdm_cComentario, params.Pdm_dFecha, params.Pdm_cEstado,
+            params.Pdm_cComentarioUser,
+            params.Pdm_dFechaCrea,
+            params.Pdm_dFechaModifica,
+            params.Pdm_cUserModifica           
         ]);
         const cabeceraId = results[0].Pdm_cNummov;
 
@@ -67,17 +73,24 @@ async function executeGrabaCabecera(connection, params) {
 // Función para ejecutar el procedimiento almacenado de detalle
 async function executeGrabaDetalle(connection, cabeceraId, params) {
 
-    const query = "CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+    const query = "CALL sp_vtd_pedido (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
     try {
         for (let i = 0; i < params.length; i++) {
 
             const paramsDet = params[i];
 
             await executeQuery(connection, query, [
-                "INSERTAR", paramsDet.Emp_cCodigo, paramsDet.Pan_cAnio, cabeceraId,
-                i + 1, paramsDet.quantity, paramsDet.Cab_cCatalogo,
-                paramsDet.Cab_cDescripcion, paramsDet.Dvd_nImporte,
-                paramsDet.Dvd_nImporte * paramsDet.quantity, paramsDet, 'A', '', NOW(), null, 'WEB', null
+                "INSERTAR", 
+                paramsDet.Emp_cCodigo, 
+                paramsDet.Pan_cAnio, 
+                cabeceraId,
+                i + 1, 
+                paramsDet.quantity, 
+                paramsDet.Cab_cCatalogo,
+                paramsDet.Cab_cDescripcion, 
+                paramsDet.Dvd_nImporte,
+                paramsDet.Dvd_nImporte * paramsDet.quantity,  
+                'A', '', null, null, 'WEB', null
             ]);
         }
     } catch (error) {
@@ -97,8 +110,12 @@ async function GrabaPedido(paramsCab, paramsDet) {
         // Iniciar transacción
         await startTransaction(connection);
 
+        console.log('ejecuta cabecera');
+
         // Ejecutar procedimiento de cabecera
         const cabeceraId = await executeGrabaCabecera(connection, paramsCab);
+
+
 
         // Ejecutar procedimiento de detalle
         try {

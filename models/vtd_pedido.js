@@ -20,7 +20,7 @@ const vtd_pedido = sequelize.define('vtd_pedido', {
     Pdd_dFechaCrea: { type: DataTypes.DATE },
     Pdd_dFechaModifica: { type: DataTypes.DATE },
     Pdd_cUserCrea: { type: DataTypes.STRING },
-    Pdd_CUserModifica: { type: DataTypes.STRING }
+    Pdd_cUserModifica: { type: DataTypes.STRING }
 })
 
 module.exports = vtd_pedido;

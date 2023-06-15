@@ -20,7 +20,11 @@ const vtm_pedido = sequelize.define('vtm_pedido', {
     Cli_cCorreo  : {type: DataTypes.STRING},
     Pdm_cComentario  : {type: DataTypes.STRING},
     Pdm_dFecha: { type: DataTypes.DATE },
-    Pdm_cEstado  : {type: DataTypes.STRING}
+    Pdm_cEstado  : {type: DataTypes.STRING},
+    Pdm_cComentarioUser  : {type: DataTypes.STRING},
+    Pdm_dFechaCrea : { type: DataTypes.DATE },
+    Pdm_dFechaModifica : { type: DataTypes.DATE },
+    Pdm_cUserModifica  : {type: DataTypes.STRING}
 })
 
 module.exports = vtm_pedido;
