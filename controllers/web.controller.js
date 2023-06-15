@@ -19,6 +19,8 @@ const oImagenes = require("../models/lgm_imagenes.js");
 const oPedidoCab = require("../models/vtm_pedido.js");
 const oPedidoDet = require("../models/vtd_pedido.js");
 
+const oAcceso = require("../models/lgt_accesos.js")
+
 
 // get all data api with store procedure
 const getEventosCab = async (request, response) => {
@@ -491,6 +493,76 @@ const getTime = async (request, response) => {
     }
 };
 
+const getAccesos = async (request, response) => {
+    let connection;
+    try {
+        // create mysql connection
+        connection = await mysql.createConnection(sc.dbStringConection());
+
+        var params = request.body;
+        oAcceso.Accion = params.Accion;
+        oAcceso.Emp_cCodigo = params.Emp_cCodigo;
+        oAcceso.Lgt_nIndex = params.Lgt_nIndex;
+        oAcceso.Lgt_nTabID = params.Lgt_nTabID;
+        oAcceso.Lgt_nPortalID = params.Lgt_nPortalID;
+        oAcceso.Lgt_cTabName = params.Lgt_cTabName;
+        oAcceso.Lgt_cTitle = params.Lgt_cTitle;
+        oAcceso.Lgt_cDescription = params.Lgt_cDescription;
+        oAcceso.Lgt_nParentId = params.Lgt_nParentId;
+        oAcceso.Lgt_nLevel = params.Lgt_nLevel;
+        oAcceso.Lgt_cAuthorizedRoles = params.Lgt_cAuthorizedRoles;
+        oAcceso.Lgt_cAuthorizedRolesAllString= params.Lgt_cAuthorizedRolesAllString;
+        oAcceso.Lgt_cAdministratorRoles = params.Lgt_cAdministratorRoles;
+        oAcceso.Lgt_nTabOrder = params.Lgt_nTabOrder;
+        oAcceso.Lgt_nIsVisible = params.Lgt_nIsVisible;
+        oAcceso.Lgt_cComponentName = params.Lgt_cComponentName;
+        oAcceso.Lgt_cRouteName = params.Lgt_cRouteName
+        oAcceso.Lgt_cIsDisabled= params.Lgt_cIsDisabled;
+        oAcceso.Lgt_cIsDeleted = params.Lgt_cIsDeleted;
+        oAcceso.Lgt_cWasUpdated = params.Lgt_cWasUpdated;
+
+
+        connection.query("CALL sp_lgt_accesos (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+            oAcceso.Accion, 
+            oAcceso.Emp_cCodigo,
+            oAcceso.Lgt_nIndex,
+            oAcceso.Lgt_nTabID,
+            oAcceso.Lgt_nPortalID,
+            oAcceso.Lgt_cTabName,
+            oAcceso.Lgt_cTitle,
+            oAcceso.Lgt_cDescription,
+            oAcceso.Lgt_nParentId,
+            oAcceso.Lgt_nLevel,
+            oAcceso.Lgt_cAuthorizedRoles,
+            oAcceso.Lgt_cAuthorizedRolesAllString,
+            oAcceso.Lgt_cAdministratorRoles,
+            oAcceso.Lgt_nTabOrder,
+            oAcceso.Lgt_nIsVisible,
+            oAcceso.Lgt_cComponentName,
+            oAcceso.Lgt_cRouteName,
+            oAcceso.Lgt_cIsDisabled,
+            oAcceso.Lgt_cIsDeleted,
+            oAcceso.Lgt_cWasUpdated
+
+        ], function (error, results, fields) {
+
+            if (error) {
+
+                response.json({ error: error.message });
+
+            } else {
+                response.json(results);
+            }
+        });
+    } catch (error) {
+        response.status(500);
+        response.send(error.message);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+};
 
 // export functions
 module.exports = {
@@ -504,7 +576,8 @@ module.exports = {
     getImagenes,
     getPedidoCab,
     getPedidoDet,
-    getTime
+    getTime,
+    getAccesos
 };
 
 
