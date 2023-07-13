@@ -172,19 +172,19 @@ const getEventosDetPuja = async (request, response) => {
         oEventoDetPuja.Dvd_dFechaModificacion = params.Dvd_dFechaModificacion;
 
 
-        {
-            console.log('---------------------------------------------');
-            console.log(oEventoDetPuja.Accion);
-            console.log(oEventoDetPuja.Emp_cCodigo);
-            console.log(oEventoDetPuja.Pan_cAnio);
-            console.log(oEventoDetPuja.Per_cPeriodo);
-            console.log(oEventoDetPuja.Dvm_cNummov);
-            console.log(oEventoDetPuja.Cab_cCatalogo);
-            console.log(oEventoDetPuja.Dvd_nCorrel);
-            console.log(oEventoDetPuja.Dvd_cEstado);
-            console.log(oEventoDetPuja.Dvd_cComentario);
+        // {
+        //     console.log('---------------------------------------------');
+        //     console.log(oEventoDetPuja.Accion);
+        //     console.log(oEventoDetPuja.Emp_cCodigo);
+        //     console.log(oEventoDetPuja.Pan_cAnio);
+        //     console.log(oEventoDetPuja.Per_cPeriodo);
+        //     console.log(oEventoDetPuja.Dvm_cNummov);
+        //     console.log(oEventoDetPuja.Cab_cCatalogo);
+        //     console.log(oEventoDetPuja.Dvd_nCorrel);
+        //     console.log(oEventoDetPuja.Dvd_cEstado);
+        //     console.log(oEventoDetPuja.Dvd_cComentario);
             
-        }
+        // }
 
 
         connection.query("CALL sp_vtd_evento_puja (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
