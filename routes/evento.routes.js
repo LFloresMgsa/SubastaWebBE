@@ -34,6 +34,8 @@ router.post('/time/',webController.getTime);
 
 router.post('/lgt_accesos/',webController.getAccesos);
 
+router.post('/vtm_pedido_estados/',webController.getActualizaEstado);
+
 // servicios con seguridad JWT
 router.post('/lgm_catalogo_bs/auth/',checkAuth,webController.getCatalogo);
 router.post('/vtm_evento/auth/',checkAuth,webController.getEventosCab);
@@ -45,6 +47,7 @@ router.post('/lgm_videoteca/auth/',checkAuth,webController.getVideoteca);
 router.post('/vtm_pedido/auth/',checkAuth,webController.getPedidoCab);
 router.post('/vtd_pedido/auth/',checkAuth,webController.getPedidoDet);
 router.post('/lgt_accesos/auth',webController.getAccesos);
+router.post('/vtm_pedido_estados/auth',webController.getActualizaEstado);
  
 // servicios transaccionales
 router.post('/FinalizarCompra/',webControllerTx.getGrabarPedido);
