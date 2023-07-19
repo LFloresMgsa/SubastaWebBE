@@ -22,6 +22,7 @@ const vtd_evento_puja = sequelize.define('vtd_evento_puja', {
     Dvd_dFechaPuja : {type: DataTypes.DATE},
     Dvd_cComentario: {type: DataTypes.STRING},
     Dvd_dFechaModificacion : {type: DataTypes.DATE}
+  
    
 })
 

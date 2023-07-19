@@ -21,6 +21,7 @@ const vtd_evento = sequelize.define('vtd_evento', {
     Dvd_dFechaModifica: { type: DataTypes.DATE },
     Dvd_cUserCrea: { type: DataTypes.STRING },
     Dvd_CUserModifica: { type: DataTypes.STRING },
+    Dvd_nTopeImporte: {type: DataTypes.DECIMAL}
 })
 
 module.exports = vtd_evento;
