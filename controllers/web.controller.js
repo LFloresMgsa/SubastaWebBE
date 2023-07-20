@@ -57,11 +57,16 @@ const getEventosCab = async (request, response) => {
         oEventoCab.Dvm_dFin = params.Dvm_dFin;
         oEventoCab.Dvm_cEstado = params.Dvm_cEstado;
 
+        oEventoCab.Dvm_cDescripcionSec= params.Dvm_cDescripcionSec;
+        oEventoCab.Dvm_nTopeImporte= params.Dvm_nTopeImporte;
+        oEventoCab.Dvm_nTopeDias= params.Dvm_nTopeDias;
 
-        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?) ", [
+        connection.query("CALL sp_vtm_evento (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oEventoCab.Accion, oEventoCab.Emp_cCodigo, oEventoCab.Pan_cAnio, oEventoCab.Per_cPeriodo, oEventoCab.Dvm_cNummov,
             oEventoCab.Vtt_cTipoEvento, oEventoCab.Dvm_cDescripcion, oEventoCab.Dvm_dInicio,
-            oEventoCab.Dvm_dFin, oEventoCab.Dvm_cEstado], function (error, results, fields) {
+            oEventoCab.Dvm_dFin, oEventoCab.Dvm_cEstado, 
+            oEventoCab.Dvm_cDescripcionSec, oEventoCab.Dvm_nTopeImporte, oEventoCab.Dvm_nTopeDias
+        ], function (error, results, fields) {
 
                 if (error) {
 
@@ -85,8 +90,6 @@ const getEventosCab = async (request, response) => {
       
       
 };
-
-
 
 const getEventosDet = async (request, response) => {
     let connection;

@@ -14,7 +14,10 @@ const vtm_evento = sequelize.define('vtm_evento', {
     Dvm_cDescripcion: { type: DataTypes.STRING },
     Dvm_dInicio: {type: DataTypes.DATE},
     Dvm_dFin  : {type: DataTypes.DATE},
-    Dvm_cEstado: { type: DataTypes.STRING }
+    Dvm_cEstado: { type: DataTypes.STRING },
+    Dvm_cDescripcionSec: { type: DataTypes.STRING },
+    Dvm_nTopeImporte: {type: DataTypes.DECIMAL},
+    Dvm_nTopeDias: { type: DataTypes.INTEGER }
 })
 
 module.exports = vtm_evento;
