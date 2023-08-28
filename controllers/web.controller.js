@@ -342,14 +342,17 @@ const getCatalogo = async (request, response) => {
         oCatalogo.Info = params.Info;
         oCatalogo.Placa = params.Placa;
 
+        oCatalogo.Cab_cEstado = params.Cab_cEstado;
+        oCatalogo.Cab_cObservaciones = params.Cab_cObservaciones;
 
 
-        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
+
+        connection.query("CALL sp_lgm_catalogo_bs (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ", [
             oCatalogo.Accion, oCatalogo.Emp_cCodigo, oCatalogo.Lgt_cCategoria,
             oCatalogo.Lgt_cGrupo, oCatalogo.Lgt_cClase, oCatalogo.Lgt_cFamilia,
             oCatalogo.Cab_cCatalogo, oCatalogo.Cab_cDescripcion, oCatalogo.Propietario,
             oCatalogo.Padre, oCatalogo.Madre, oCatalogo.Info,
-            oCatalogo.Placa,
+            oCatalogo.Placa,oCatalogo.Cab_cEstado , oCatalogo.Cab_cObservaciones
         ], function (error, results, fields) {
 
             if (error) {

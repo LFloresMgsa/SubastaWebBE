@@ -17,7 +17,10 @@ const lgm_catalogo_bs = sequelize.define('lgm_catalogo_bs', {
     Padre: { type: DataTypes.STRING },
     Madre: { type: DataTypes.STRING },
     Info: { type: DataTypes.STRING },
-    Placa: { type: DataTypes.STRING }
+    Placa: { type: DataTypes.STRING },
+
+    Cab_cEstado: { type: DataTypes.STRING },
+    Cab_cObservaciones: { type: DataTypes.STRING }
 })
 
 
